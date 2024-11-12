@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>sample.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #cf8e6d;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+sample.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% md 
+</span><span class="s1"># Starting Information 
+Number of sides per die = 6   
+Number of die per roll = 3   
+Total combinations = $ 6^3 = 216 $ 
+</span><span class="s0">#%% 
+# List all combinations of 3 six-sided dice rolls</span>
+<span class="s1">combinations </span><span class="s2">= []</span>
+<span class="s1">count_combinations </span><span class="s2">= </span><span class="s3">0</span>
+
+<span class="s4">for </span><span class="s1">die1 </span><span class="s4">in </span><span class="s1">range</span><span class="s2">(</span><span class="s3">1</span><span class="s2">, </span><span class="s3">7</span><span class="s2">):</span>
+    <span class="s4">for </span><span class="s1">die2 </span><span class="s4">in </span><span class="s1">range</span><span class="s2">(</span><span class="s3">1</span><span class="s2">, </span><span class="s3">7</span><span class="s2">):</span>
+        <span class="s4">for </span><span class="s1">die3 </span><span class="s4">in </span><span class="s1">range</span><span class="s2">(</span><span class="s3">1</span><span class="s2">, </span><span class="s3">7</span><span class="s2">):</span>
+            <span class="s1">combinations</span><span class="s2">.</span><span class="s1">append</span><span class="s2">((</span><span class="s1">die1</span><span class="s2">, </span><span class="s1">die2</span><span class="s2">, </span><span class="s1">die3</span><span class="s2">))</span>
+            <span class="s1">count_combinations </span><span class="s2">+= </span><span class="s3">1</span>
+
+<span class="s4">for </span><span class="s1">combination </span><span class="s4">in </span><span class="s1">combinations</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s1">combination</span><span class="s2">)</span>
+    
+<span class="s1">print</span><span class="s2">(</span><span class="s5">f&quot;There are </span><span class="s4">{</span><span class="s1">count_combinations</span><span class="s4">} </span><span class="s5">combinations&quot;</span><span class="s2">)</span>
+<span class="s0">#%% md 
+</span>
+
+<span class="s1"># Determine Probability of Triples 
+There is only one valid combination for a roll to be considered a triple.   
+Triples = [(x,x,x)]   
+ 
+Due to the specificity of triples, we can write this manually quite easily:   
+Triples = [(1,1,1), (2,2,2), (3,3,3), (4,4,4), (5,5,5), (6,6,6)]   
+$ \therefore $ There is a $ \frac{6}{216} $ probability of triples occurring 
+</span><span class="s0">#%% 
+# Find all combinations of triples</span>
+<span class="s1">same_value_triples </span><span class="s2">= [</span><span class="s1">combo </span><span class="s4">for </span><span class="s1">combo </span><span class="s4">in </span><span class="s1">combinations </span><span class="s4">if </span><span class="s1">len</span><span class="s2">(</span><span class="s1">set</span><span class="s2">(</span><span class="s1">combo</span><span class="s2">)) == </span><span class="s3">1</span><span class="s2">]</span>
+<span class="s1">count_triples </span><span class="s2">= </span><span class="s3">0</span>
+
+<span class="s4">for </span><span class="s1">triple </span><span class="s4">in </span><span class="s1">same_value_triples</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s1">triple</span><span class="s2">)</span>
+    <span class="s1">count_triples </span><span class="s2">+= </span><span class="s3">1</span>
+
+<span class="s1">print</span><span class="s2">(</span><span class="s5">f&quot;There are </span><span class="s4">{</span><span class="s1">count_triples</span><span class="s4">} </span><span class="s5">triples&quot;</span><span class="s2">)</span>
+<span class="s0">#%% md 
+</span><span class="s1"># Determine probability of doubles 
+There are three valid combinations for doubles based on rolling three dice   
+Doubles = [(x,x,y), (x,y,x), (y,x,x)]   
+The criteria for a double are:   
+1. 'x' must occur twice 
+2. 'x' cannot be equal to 'y' 
+   
+On any roll, 'x' will have 6 possible values because 6-sided die are used. This means that 'y' can have only 5 possible values because 'x' cannot be equal to 'y'.   
+For each valid doubles combination there is $ 6 \times 5 = 30 $ sub-combinations. 
+ 
+$ \therefore $ There is a $ \frac{90}{216} $ probability of doubles occurring 
+</span><span class="s0">#%% 
+</span><span class="s1">doubles </span><span class="s2">= [</span><span class="s1">combo </span><span class="s4">for </span><span class="s1">combo </span><span class="s4">in </span><span class="s1">combinations </span><span class="s4">if </span><span class="s1">len</span><span class="s2">(</span><span class="s1">set</span><span class="s2">(</span><span class="s1">combo</span><span class="s2">)) == </span><span class="s3">2</span><span class="s2">]</span>
+<span class="s1">count_doubles </span><span class="s2">= </span><span class="s3">0</span>
+
+<span class="s0"># Print the result</span>
+<span class="s4">for </span><span class="s1">double </span><span class="s4">in </span><span class="s1">doubles</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s1">double</span><span class="s2">)</span>
+    <span class="s1">count_doubles </span><span class="s2">+= </span><span class="s3">1</span>
+    
+<span class="s1">print</span><span class="s2">(</span><span class="s5">f&quot;There are </span><span class="s4">{</span><span class="s1">count_doubles</span><span class="s4">} </span><span class="s5">doubles&quot;</span><span class="s2">)</span>
+<span class="s0">#%% md 
+</span><span class="s1"># Determine probability of singles 
+There are many valid combinations for singles; singles can also be described as being non-doubles and non-triples in this scenario.   
+Using that logic we can determine there is a $ \frac{216-(90+6)}{216} = \frac{120}{216} $ probability of singles occurring. 
+</span><span class="s0">#%% 
+</span><span class="s1">singles </span><span class="s2">= [</span><span class="s1">combo </span><span class="s4">for </span><span class="s1">combo </span><span class="s4">in </span><span class="s1">combinations </span><span class="s4">if </span><span class="s1">len</span><span class="s2">(</span><span class="s1">set</span><span class="s2">(</span><span class="s1">combo</span><span class="s2">)) == </span><span class="s3">3</span><span class="s2">]</span>
+<span class="s1">count_singles </span><span class="s2">= </span><span class="s3">0</span>
+
+<span class="s0"># Print the result</span>
+<span class="s4">for </span><span class="s1">single </span><span class="s4">in </span><span class="s1">singles</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s1">single</span><span class="s2">)</span>
+    <span class="s1">count_singles </span><span class="s2">+= </span><span class="s3">1</span>
+    
+<span class="s1">print</span><span class="s2">(</span><span class="s5">f&quot;There are </span><span class="s4">{</span><span class="s1">count_singles</span><span class="s4">} </span><span class="s5">singles&quot;</span><span class="s2">)</span>
+<span class="s0">#%% md 
+</span><span class="s1"># Question 'd': $ P(x=2) $ 
+Using the logic from &quot;Determine probability of doubles&quot; we know there is a $ \frac{90}{216} $ probability of doubles occurring 
+ 
+# Question 'e': $ P(x=1) $  
+ Using the logic from &quot;Determine probability of singles&quot; we know there is a $ \frac{120}{216} $ probability of singles occurring. 
+  
+# Question 'f': $ P(y=10) $ 
+Using the following code we can quickly determine there are 27 combinations with a sum of 10. 
+</span><span class="s0">#%% 
+# Find all combinations where the sum equals 10</span>
+<span class="s1">combinations_sum_10 </span><span class="s2">= [</span><span class="s1">combo </span><span class="s4">for </span><span class="s1">combo </span><span class="s4">in </span><span class="s1">combinations </span><span class="s4">if </span><span class="s1">sum</span><span class="s2">(</span><span class="s1">combo</span><span class="s2">) == </span><span class="s3">10</span><span class="s2">]</span>
+<span class="s1">count_combinations_sum_10 </span><span class="s2">= </span><span class="s3">0</span>
+
+<span class="s4">for </span><span class="s1">combo </span><span class="s4">in </span><span class="s1">combinations_sum_10</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s1">combo</span><span class="s2">)</span>
+    <span class="s1">count_combinations_sum_10 </span><span class="s2">+= </span><span class="s3">1</span>
+    
+<span class="s1">print</span><span class="s2">(</span><span class="s5">f&quot;There are </span><span class="s4">{</span><span class="s1">count_combinations_sum_10</span><span class="s4">} </span><span class="s5">combinations where the sum equals 10&quot;</span><span class="s2">)</span></pre>
+</body>
+</html>
